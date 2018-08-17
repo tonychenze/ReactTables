@@ -1,20 +1,32 @@
 import React, { Component } from "react";
 
-import { getMovies, deleteMovie } from "../services/fakeMovieService";
-
+import { getMovies } from "../services/fakeMovieService";
+import Like from "./like";
 export default class Movies extends Component {
   constructor(props) {
     super(props);
+    const likeMovies = getMovies().map(m => {
+      m.like = false;
+      return m;
+    });
     this.state = {
-      movies: getMovies()
+      movies: likeMovies
     };
   }
 
   handleRemoveMovie = movieID => {
-    deleteMovie(movieID);
+    const newList = this.state.movies.filter(movie => movie._id !== movieID);
     this.setState({
-      movies: getMovies()
+      movies: newList
     });
+  };
+
+  handleLike = movie => {
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    movies[index] = { ...movie };
+    movies[index].like = !movie.like;
+    this.setState({ movies });
   };
 
   getMoviesRows = () => {
@@ -27,6 +39,9 @@ export default class Movies extends Component {
             <td>{movie.genre.name}</td>
             <td>{movie.numberInStock}</td>
             <td>{movie.dailyRentalRate}</td>
+            <td>
+              <Like item={movie} onLike={this.handleLike} />
+            </td>
             <td>
               <button
                 className="btn btn-danger"
@@ -43,7 +58,7 @@ export default class Movies extends Component {
   };
 
   getTableHeader = () => {
-    const headers = ["Title", "Genre", "Stock", "Rate", " "];
+    const headers = ["Title", "Genre", "Stock", "Rate", "Like", " "];
     return (
       <thead className="thead-dark">
         <tr>
