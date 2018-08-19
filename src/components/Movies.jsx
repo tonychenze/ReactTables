@@ -6,7 +6,7 @@ export default class Movies extends Component {
   constructor(props) {
     super(props);
     const likeMovies = getMovies().map(m => {
-      m.like = false;
+      m.liked = false;
       return m;
     });
     this.state = {
@@ -25,7 +25,7 @@ export default class Movies extends Component {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
     movies[index] = { ...movie };
-    movies[index].like = !movie.like;
+    movies[index].liked = !movie.liked;
     this.setState({ movies });
   };
 
@@ -40,7 +40,7 @@ export default class Movies extends Component {
             <td>{movie.numberInStock}</td>
             <td>{movie.dailyRentalRate}</td>
             <td>
-              <Like item={movie} onLike={this.handleLike} />
+              <Like liked={movie.liked} onLike={() => this.handleLike(movie)} />
             </td>
             <td>
               <button
