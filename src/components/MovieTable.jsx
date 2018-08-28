@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Like from "./common/like";
 import TableHeader from "./common/tableHeader";
+import TableBody from "./common/tableBody";
 
 class MovieTable extends Component {
   movieHeaders = [
@@ -8,18 +9,32 @@ class MovieTable extends Component {
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
     { path: "dailyRentalRate", label: "Rate" },
-    { key: "like", label: "" },
-    { key: "remove", label: "" }
+    {
+      key: "like",
+      label: "",
+      content: movie => (
+        <Like
+          liked={movie.liked}
+          onLike={() => this.props.onLikeClicked(movie)}
+        />
+      )
+    },
+    {
+      key: "remove",
+      label: "",
+      content: movie => (
+        <button
+          className="btn btn-danger"
+          onClick={() => this.props.onRemoveClicked(movie._id)}
+        >
+          Delete
+        </button>
+      )
+    }
   ];
 
   render() {
-    const {
-      movies,
-      onLikeClicked,
-      onRemoveClicked,
-      onSort,
-      currentSortColumn
-    } = this.props;
+    const { movies, onSort, currentSortColumn } = this.props;
 
     return (
       <table className="table">
@@ -28,28 +43,7 @@ class MovieTable extends Component {
           currentSortHeader={currentSortColumn}
           onSort={onSort}
         />
-        <tbody>
-          {movies.map(movie => (
-            <tr key={movie.title}>
-              <td>{movie.title}</td>
-              <td>{movie.genre.name}</td>
-              <td>{movie.numberInStock}</td>
-              <td>{movie.dailyRentalRate}</td>
-              <td>
-                <Like liked={movie.liked} onLike={() => onLikeClicked(movie)} />
-              </td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => onRemoveClicked(movie._id)}
-                >
-                  {" "}
-                  Delete{" "}
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        <TableBody rows={movies} columns={this.movieHeaders} />
       </table>
     );
   }
