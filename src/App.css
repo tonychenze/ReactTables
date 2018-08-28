@@ -30,8 +30,3 @@
     transform: rotate(360deg);
   }
 }
-
-/* my own customized styles */
-.clickable {
-  cursor: pointer;
-}

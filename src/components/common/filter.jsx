@@ -8,9 +8,7 @@ class FilterMovies extends Component {
         {genres.map(gen => (
           <li
             className={
-              gen._id === selectedGen._id
-                ? "list-group-item active"
-                : "list-group-item"
+              gen === selectedGen ? "list-group-item active" : "list-group-item"
             }
             key={gen._id}
             onClick={() => this.props.onGenClick(gen)}

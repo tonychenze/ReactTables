@@ -1,5 +1,4 @@
 import React from "react";
-
 const ListGroup = props => {
   const { items, nameProperty, idProperty } = props;
   return (
@@ -13,4 +12,8 @@ const ListGroup = props => {
   );
 };
 
+ListGroup.defaultProps = {
+  nameProperty: "name",
+  idProperty: "_id"
+};
 export default ListGroup;
