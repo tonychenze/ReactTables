@@ -4,9 +4,8 @@ import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 import Pagination from "./common/pagination";
 import MovieTable from "./MovieTable";
-import FilterMovies from "./common/filter";
 import { paginate } from "../util/paginate";
-// import ListGroup from "./common/listGroup";
+import ListGroup from "./common/listGroup";
 
 export default class Movies extends Component {
   constructor(props) {
@@ -111,10 +110,10 @@ export default class Movies extends Component {
     return (
       <div className="row">
         <div className="col-2">
-          <FilterMovies
-            genres={genres}
-            selectedGen={currentGen}
-            onGenClick={this.handleGenClick}
+          <ListGroup
+            items={genres}
+            selectedItem={currentGen}
+            onItemClick={this.handleGenClick}
           />
         </div>
         <div className="col">
