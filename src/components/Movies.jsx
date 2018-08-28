@@ -103,8 +103,6 @@ export default class Movies extends Component {
         <div className="col">
           <MovieTable
             movies={sortedMovies}
-            onLikeClicked={this.handleLike}
-            onRemoveClicked={this.handleRemoveMovie}
             currentSortColumn={currentSortColumn}
             onSort={this.handleOnSort}
           />

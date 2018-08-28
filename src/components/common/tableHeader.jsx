@@ -1,15 +1,24 @@
 import React, { Component } from "react";
 class TableHeader extends Component {
   raiseSort = path => {
-    const currentSortHeader = { ...this.props.currentSortHeader };
-    if (currentSortHeader.path === path) {
-      currentSortHeader.order =
-        currentSortHeader.order === "asc" ? "desc" : "asc";
+    const currentSortColumn = { ...this.props.currentSortColumn };
+    if (!path) return;
+    if (currentSortColumn.path === path) {
+      currentSortColumn.order =
+        currentSortColumn.order === "asc" ? "desc" : "asc";
     } else {
-      currentSortHeader.path = path;
-      currentSortHeader.order = "asc";
+      currentSortColumn.path = path;
+      currentSortColumn.order = "asc";
     }
-    this.props.onSort(currentSortHeader);
+    this.props.onSort(currentSortColumn);
+  };
+
+  renderOrderIcon = column => {
+    const { currentSortColumn } = this.props;
+    if (currentSortColumn.path !== column.path || !column.path) return null;
+    if (currentSortColumn.order === "asc")
+      return <i className="fa fa-sort-asc" />;
+    return <i className="fa fa-sort-desc" />;
   };
 
   render() {
@@ -19,10 +28,12 @@ class TableHeader extends Component {
         <tr>
           {headers.map(header => (
             <th
+              className="clickable"
               key={header.path || header.key}
               onClick={() => this.raiseSort(header.path)}
             >
               {header.label}
+              {this.renderOrderIcon(header)}
             </th>
           ))}
         </tr>
