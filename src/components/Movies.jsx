@@ -30,6 +30,7 @@ export default class Movies extends Component {
       movies: likeMovies
     });
   }
+  
   handleRemoveMovie = movieID => {
     const newList = this.state.movies.filter(movie => movie._id !== movieID);
     this.setState({
