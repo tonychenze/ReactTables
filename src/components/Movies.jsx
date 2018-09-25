@@ -6,7 +6,6 @@ import Pagination from "./common/pagination";
 import MovieTable from "./MovieTable";
 import { paginate } from "../util/paginate";
 import ListGroup from "./common/listGroup";
-
 export default class Movies extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +29,7 @@ export default class Movies extends Component {
       movies: likeMovies
     });
   }
-  
+
   handleRemoveMovie = movieID => {
     const newList = this.state.movies.filter(movie => movie._id !== movieID);
     this.setState({
@@ -89,6 +88,7 @@ export default class Movies extends Component {
       [currentSortColumn.path],
       [currentSortColumn.order]
     );
+
     return {
       sortedMovies: sortedMovies,
       filteredLength: filteredMovies.length
