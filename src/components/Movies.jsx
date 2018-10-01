@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import { getMovies } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
+import { paginate } from "../util/paginate";
 import Pagination from "./common/pagination";
 import MovieTable from "./MovieTable";
-import { paginate } from "../util/paginate";
 import ListGroup from "./common/listGroup";
 export default class Movies extends Component {
   constructor(props) {
@@ -118,6 +119,9 @@ export default class Movies extends Component {
           />
         </div>
         <div className="col">
+          <NavLink to="/movies/new">
+            <button className="btn btn-primary">New Movie</button>
+          </NavLink>
           <MovieTable
             movies={sortedMovies}
             currentSortColumn={currentSortColumn}
